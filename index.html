@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinQuest - Play Games, Earn Coins, Unlock Rewards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f4f4f9;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .logo span {
+            color: #f0a500;
+        }
+
+        .coin-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fef7e0;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #8b6b00;
+        }
+
+        .coin-display .icon {
+            font-size: 18px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+        }
+
+        .nav-links button {
+            background: #f0f0f5;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #444;
+            transition: background 0.15s;
+        }
+
+        .nav-links button:hover {
+            background: #e0e0ea;
+        }
+
+        .nav-links button.active {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        /* Ad Spaces */
+        .ad-banner {
+            background: #e8e8f0;
+            border-radius: 10px;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 16px;
+            border: 1px dashed #ccc;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-banner strong {
+            color: #555;
+        }
+
+        .ad-sidebar {
+            background: #e8e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            border: 1px dashed #ccc;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 16px;
+        }
+
+        @media (max-width: 750px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1a1a2e;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .game-card {
+            background: #f9f9fc;
+            border-radius: 10px;
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #eee;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .game-card:hover {
+            border-color: #f0a500;
+            box-shadow: 0 2px 8px rgba(240, 165, 0, 0.12);
+        }
+
+        .game-card .emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .game-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .game-card .reward {
+            font-size: 12px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        .game-card .locked {
+            font-size: 11px;
+            color: #e74c3c;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .game-card.locked-card {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Game Play Area */
+        .game-area {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            min-height: 300px;
+        }
+
+        .game-area .back-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 4px 0;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .game-area .back-btn:hover {
+            color: #1a1a2e;
+        }
+
+        .game-area h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a1a2e;
+        }
+
+        /* Shop & Scratch Card Styles */
+        .shop-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .shop-item {
+            background: #f9f9fc;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .shop-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .shop-item .price {
+            font-size: 13px;
+            color: #f0a500;
+            font-weight: 600;
+        }
+
+        .shop-item button {
+            margin-top: 10px;
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .shop-item button:hover {
+            background: #333;
+        }
+
+        .shop-item button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Scratch Card */
+        .scratch-card {
+            background: linear-gradient(135deg, #f0a500, #ffcc00);
+            border-radius: 14px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+            user-select: none;
+        }
+
+        .scratch-card.revealed {
+            background: #fff;
+            border: 2px solid #f0a500;
+            color: #1a1a2e;
+        }
+
+        .scratch-card .scratch-hint {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .scratch-card .scratch-reward {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .scratch-card .scratch-small {
+            font-size: 12px;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+
+        /* Quiz styles */
+        .quiz-question {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option {
+            background: #f4f4f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.1s;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #e8e8f0;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .quiz-option:disabled {
+            cursor: default;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Word game styles */
+        .word-display {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-align: center;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .word-hint {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .word-input-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .word-input-group input {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 180px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .word-input-group button {
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .word-input-group button:hover {
+            background: #333;
+        }
+
+        .word-attempts {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* Sudoku */
+        .sudoku-board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            max-width: 360px;
+            margin: 0 auto;
+            border: 2px solid #333;
+        }
+
+        .sudoku-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 500;
+            border: 1px solid #bbb;
+            background: #fff;
+        }
+
+        .sudoku-cell:nth-child(3n) {
+            border-right: 2px solid #333;
+        }
+
+        .sudoku-cell:nth-child(9n+1) {
+            border-left: 2px solid #333;
+        }
+
+        .sudoku-cell:nth-child(n+19):nth-child(-n+27) {
+            border-bottom: 2px solid #333;
+        }
+
+        .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+            border-bottom: 2px solid #333;
+        }
+
+        .sudoku-cell:nth-child(-n+9) {
+            border-top: 2px solid #333;
+        }
+
+        .sudoku-cell:nth-child(n+73) {
+            border-bottom: 2px solid #333;
+        }
+
+        .sudoku-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            background: transparent;
+            outline: none;
+        }
+
+        .sudoku-cell input:focus {
+            background: #fff8e0;
+        }
+
+        .sudoku-cell .given {
+            color: #1a1a2e;
+            font-weight: 700;
+        }
+
+        .sudoku-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .sudoku-controls button {
+            background: #f0f0f5;
+            border: 1px solid #ddd;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .sudoku-controls button:hover {
+            background: #e0e0ea;
+        }
+
+        .sudoku-controls button.primary {
+            background: #1a1a2e;
+            color: #fff;
+            border-color: #1a1a2e;
+        }
+
+        .sudoku-controls button.primary:hover {
+            background: #333;
+        }
+
+        /* Memory game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: #1a1a2e;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.15s;
+            color: #fff;
+        }
+
+        .memory-card.flipped {
+            background: #fff;
+            border: 2px solid #f0a500;
+            color: #1a1a2e;
+        }
+
+        .memory-card.matched {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #1a1a2e;
+            cursor: default;
+        }
+
+        /* Math game */
+        .math-problem {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: #1a1a2e;
+        }
+
+        .math-input-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 12px 0;
+        }
+
+        .math-input-group input {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 120px;
+            text-align: center;
+        }
+
+        .math-input-group button {
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .math-score {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Sidebar */
+        .sidebar-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f5;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item .rank {
+            color: #888;
+            margin-right: 6px;
+        }
+
+        .leaderboard-item .name {
+            flex: 1;
+        }
+
+        .leaderboard-item .score {
+            font-weight: 600;
+            color: #f0a500;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: #f9f9fc;
+            border-radius: 8px;
+            padding: 12px 16px;
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .stat-box .num {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .stat-box .label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Button */
+        .btn-primary {
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-secondary {
+            background: #f0f0f5;
+            border: 1px solid #ddd;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0ea;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Coin<span>Quest</span></div>
+        <div class="coin-display">
+            <span class="icon">C</span>
+            <span id="coinBalance">0</span>
+        </div>
+        <div class="nav-links">
+            <button class="active" data-section="games" onclick="showSection('games')">Games</button>
+            <button data-section="shop" onclick="showSection('shop')">Shop</button>
+            <button data-section="stats" onclick="showSection('stats')">Stats</button>
+        </div>
+    </div>
+
+    <!-- Top Ad -->
+    <div class="ad-banner">
+        <strong>Ad Space</strong> &mdash; Your advertisement could appear here. Contact us for sponsorship opportunities.
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <div>
+
+            <!-- GAMES SECTION -->
+            <div id="section-games" class="section active">
+                <div class="card">
+                    <h2>Choose a Game</h2>
+                    <p>Play any unlocked game to earn coins. Complete games faster for bonus rewards.</p>
+                </div>
+
+                <div class="game-grid" id="gameGrid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div id="gamePlayArea" style="display:none; margin-top: 16px;">
+                    <div class="game-area" id="gameAreaInner">
+                        <!-- Game content rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- SHOP SECTION -->
+            <div id="section-shop" class="section">
+                <div class="card">
+                    <h2>Shop</h2>
+                    <p>Spend your coins on upgrades and scratch cards with real coupon codes.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Scratch Cards</h3>
+                    <p style="margin-bottom:12px;">Buy a scratch card for 25 coins and scratch it to reveal a coupon code for popular shopping sites.</p>
+                    <div class="shop-items" id="scratchCardList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Game Unlocks</h3>
+                    <p style="margin-bottom:12px;">Unlock harder versions of games for more coins per win.</p>
+                    <div class="shop-items" id="unlockList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS SECTION -->
+            <div id="section-stats" class="section">
+                <div class="card">
+                    <h2>Your Stats</h2>
+                    <div class="stats-row" id="statsRow">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>How to Earn More Coins</h3>
+                    <p>Complete games with fewer mistakes for bonus coins. Each game gives a base reward plus a speed bonus if you finish quickly. Check the shop for scratch cards that can give you shopping coupons.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div>
+            <div class="sidebar-section">
+                <h3>Leaderboard</h3>
+                <div id="leaderboardList">
+                    <div class="leaderboard-item"><span class="rank">1.</span><span class="name">You</span><span class="score" id="lbYourScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="ad-sidebar">
+                <strong>Ad Space</strong>
+                <span>300x250</span>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Quick Tips</h3>
+                <p style="font-size:13px;color:#555;line-height:1.5;">Complete daily games to build your coin streak. Use coins to unlock harder levels for bigger rewards. Scratch cards contain real coupon codes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Ad -->
+    <div class="ad-banner" style="margin-top:16px;">
+        <strong>Ad Space</strong> &mdash; Footer banner advertisement area.
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ================================================================
+    // DATA
+    // ================================================================
+
+    const GAMES = [
+        { id: 'quiz', name: 'Quick Quiz', emoji: 'Q', desc: 'Answer 5 trivia questions on various topics.', baseReward: 5, unlockCost: 0 },
+        { id: 'wordguess', name: 'Word Guess', emoji: 'W', desc: 'Guess the hidden word one letter at a time.', baseReward: 5, unlockCost: 0 },
+        { id: 'mathblitz', name: 'Math Blitz', emoji: 'M', desc: 'Solve as many math problems as you can in 30 seconds.', baseReward: 6, unlockCost: 0 },
+        { id: 'memory', name: 'Memory Match', emoji: 'M', desc: 'Flip cards and find all matching pairs.', baseReward: 6, unlockCost: 0 },
+        { id: 'sudoku', name: 'Sudoku', emoji: 'S', desc: 'Fill the 9x9 grid so each row, column, and 3x3 box contains 1-9.', baseReward: 8, unlockCost: 0 },
+        { id: 'quiz-hard', name: 'Hard Quiz', emoji: 'Q', desc: '10 tough trivia questions. Bigger rewards.', baseReward: 12, unlockCost: 50, locked: true },
+        { id: 'wordguess-hard', name: 'Hard Word Guess', emoji: 'W', desc: 'Longer words, fewer attempts. Higher payout.', baseReward: 12, unlockCost: 50, locked: true },
+        { id: 'mathblitz-hard', name: 'Math Blitz Pro', emoji: 'M', desc: 'Tougher problems in 30 seconds. Double reward.', baseReward: 12, unlockCost: 50, locked: true },
+    ];
+
+    const QUIZ_QUESTIONS = [
+        { q: 'What is the capital of France?', options: ['Berlin', 'Madrid', 'Paris', 'Rome'], answer: 2 },
+        { q: 'What is 7 x 8?', options: ['48', '56', '64', '72'], answer: 1 },
+        { q: 'Which planet is known as the Red Planet?', options: ['Venus', 'Mars', 'Jupiter', 'Saturn'], answer: 1 },
+        { q: 'What is the largest ocean on Earth?', options: ['Atlantic', 'Indian', 'Arctic', 'Pacific'], answer: 3 },
+        { q: 'Who wrote Romeo and Juliet?', options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Mark Twain'], answer: 1 },
+    ];
+
+    const HARD_QUIZ_QUESTIONS = [
+        { q: 'What is the chemical symbol for gold?', options: ['Go', 'Gd', 'Au', 'Ag'], answer: 2 },
+        { q: 'In which year did the Titanic sink?', options: ['1910', '1912', '1914', '1916'], answer: 1 },
+        { q: 'What is the smallest prime number?', options: ['0', '1', '2', '3'], answer: 2 },
+        { q: 'Which country has the longest coastline?', options: ['Australia', 'Russia', 'Canada', 'Indonesia'], answer: 2 },
+        { q: 'What is the powerhouse of the cell?', options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Golgi body'], answer: 1 },
+        { q: 'Who painted the Mona Lisa?', options: ['Michelangelo', 'Da Vinci', 'Raphael', 'Donatello'], answer: 1 },
+        { q: 'What element has atomic number 1?', options: ['Helium', 'Lithium', 'Hydrogen', 'Oxygen'], answer: 2 },
+        { q: 'Which river is the longest in the world?', options: ['Amazon', 'Nile', 'Yangtze', 'Mississippi'], answer: 1 },
+        { q: 'What year did World War II end?', options: ['1943', '1944', '1945', '1946'], answer: 2 },
+        { q: 'What is the hardest natural substance?', options: ['Gold', 'Iron', 'Diamond', 'Platinum'], answer: 2 },
+    ];
+
+    const WORD_LIST = ['PYTHON', 'JAVA', 'RUBY', 'COBALT', 'SILVER', 'COPPER', 'TIGER', 'EAGLE', 'PIANO', 'GUITAR', 'PLANET', 'COMET', 'OCEAN', 'FOREST', 'CASTLE'];
+    const HARD_WORD_LIST = ['DAUPHIN', 'MYSTIQUE', 'KALEIDOSCOPE', 'QUIXOTIC', 'ZYGOTE', 'JUXTAPOSE', 'LYMPHATIC', 'EQUILIBRIUM'];
+
+    const SCRATCH_REWARDS = [
+        { value: 'AMAZON10', desc: '10% off on Amazon - code: AMAZON10' },
+        { value: 'FLIPKART15', desc: '15% off on Flipkart - code: FLIPKART15' },
+        { value: 'MYNTRA20', desc: '20% off on Myntra - code: MYNTRA20' },
+        { value: 'AJIO25', desc: '25% off on AJIO fashion - code: AJIO25' },
+        { value: 'SWIGGY50', desc: 'Rs 50 off on Swiggy - code: SWIGGY50' },
+        { value: 'ZOMATO60', desc: '60% off up to Rs 75 on Zomato - code: ZOMATO60' },
+        { value: 'DOMINOS20', desc: '20% off on Domino\'s - code: DOMINOS20' },
+        { value: 'UDEMY10', desc: '10% off any Udemy course - code: UDEMY10' },
+        { value: 'NYKA100', desc: 'Rs 100 off on Nykaa - code: NYKA100' },
+        { value: 'FLIP50', desc: 'Flat Rs 500 off on Flipkart (min Rs 2999) - code: FLIP50' },
+    ];
+
+    // ================================================================
+    // STATE
+    // ================================================================
+
+    let state = {
+        coins: 10,
+        gamesPlayed: 0,
+        totalEarned: 0,
+        unlocks: [],
+        scratchCardsOwned: 0,
+        bestQuiz: 0,
+        bestMath: 0,
+        gamesCompleted: 0,
+    };
+
+    function loadState() {
+        try {
+            const saved = localStorage.getItem('coinquest_state');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                state = { ...state, ...parsed };
+            }
+        } catch (e) {}
+    }
+
+    function saveState() {
+        try {
+            localStorage.setItem('coinquest_state', JSON.stringify(state));
+        } catch (e) {}
+    }
+
+    // ================================================================
+    // DOM REFS
+    // ================================================================
+
+    const coinBalance = document.getElementById('coinBalance');
+    const gameGrid = document.getElementById('gameGrid');
+    const gamePlayArea = document.getElementById('gamePlayArea');
+    const gameAreaInner = document.getElementById('gameAreaInner');
+    const toast = document.getElementById('toast');
+    const scratchCardList = document.getElementById('scratchCardList');
+    const unlockList = document.getElementById('unlockList');
+    const statsRow = document.getElementById('statsRow');
+    const lbYourScore = document.getElementById('lbYourScore');
+
+    // ================================================================
+    // NAVIGATION
+    // ================================================================
+
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        document.getElementById('section-' + id).classList.add('active');
+        document.querySelectorAll('.nav-links button').forEach(el => el.classList.remove('active'));
+        document.querySelector('.nav-links button[data-section="' + id + '"]').classList.add('active');
+
+        if (id === 'shop') renderShop();
+        if (id === 'stats') renderStats();
+        if (id === 'games') renderGames();
+    }
+
+    // ================================================================
+    // TOAST
+    // ================================================================
+
+    let toastTimer;
+
+    function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // ================================================================
+    // COINS
+    // ================================================================
+
+    function addCoins(amount) {
+        state.coins += amount;
+        state.totalEarned += amount;
+        updateCoinDisplay();
+        saveState();
+    }
+
+    function spendCoins(amount) {
+        if (state.coins < amount) return false;
+        state.coins -= amount;
+        updateCoinDisplay();
+        saveState();
+        return true;
+    }
+
+    function updateCoinDisplay() {
+        coinBalance.textContent = state.coins;
+    }
+
+    // ================================================================
+    // GAME RENDER
+    // ================================================================
+
+    function renderGames() {
+        gamePlayArea.style.display = 'none';
+        const html = GAMES.map(g => {
+            const isLocked = g.locked && !state.unlocks.includes(g.id);
+            return `
+                <div class="game-card ${isLocked ? 'locked-card' : ''}" onclick="${isLocked ? '' : "startGame('" + g.id + "')"}">
+                    <div class="emoji">${g.emoji}</div>
+                    <h3>${g.name}</h3>
+                    <div class="reward">${g.baseReward} coins per win</div>
+                    ${isLocked ? '<div class="locked">Locked - ' + g.unlockCost + ' coins to unlock</div>' : ''}
+                </div>
+            `;
+        }).join('');
+        gameGrid.innerHTML = html;
+    }
+
+    // ================================================================
+    // GAME ENGINE
+    // ================================================================
+
+    let currentGame = null;
+    let gameState = {};
+
+    function startGame(gameId) {
+        const game = GAMES.find(g => g.id === gameId);
+        if (!game) return;
+        currentGame = gameId;
+        gamePlayArea.style.display = 'block';
+
+        if (gameId === 'quiz') renderQuiz(false);
+        else if (gameId === 'quiz-hard') renderQuiz(true);
+        else if (gameId === 'wordguess') renderWordGuess(false);
+        else if (gameId === 'wordguess-hard') renderWordGuess(true);
+        else if (gameId === 'mathblitz') renderMathBlitz(false);
+        else if (gameId === 'mathblitz-hard') renderMathBlitz(true);
+        else if (gameId === 'memory') renderMemory();
+        else if (gameId === 'sudoku') renderSudoku();
+
+        window.scrollTo({ top: gamePlayArea.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function backToGames() {
+        gamePlayArea.style.display = 'none';
+        currentGame = null;
+    }
+
+    function completeGame(reward) {
+        state.gamesPlayed++;
+        state.gamesCompleted++;
+        addCoins(reward);
+        if (currentGame === 'quiz' || currentGame === 'quiz-hard') {
+            state.bestQuiz = Math.max(state.bestQuiz, reward);
+        }
+        showToast('You earned ' + reward + ' coins!');
+        saveState();
+        renderStats();
+
+        // Show reward overlay briefly
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <div style="text-align:center;padding:40px 0;">
+                <div style="font-size:40px;font-weight:700;color:#f0a500;">+' + reward + '</div>
+                <div style="font-size:16px;color:#555;margin:8px 0;">coins earned</div>
+                <div style="font-size:14px;color:#888;">Total: ' + state.coins + ' coins</div>
+                <br>
+                <button class="btn-primary" onclick="backToGames()">Play Again</button>
+            </div>
+        `;
+    }
+
+    // ================================================================
+    // QUIZ
+    // ================================================================
+
+    function renderQuiz(hard) {
+        const questions = hard ? HARD_QUIZ_QUESTIONS : QUIZ_QUESTIONS;
+        const reward = hard ? 12 : 5;
+        gameState = { questions: shuffleArray([...questions]), currentQ: 0, score: 0, answered: false };
+        renderQuizQuestion(reward);
+    }
+
+    function renderQuizQuestion(reward) {
+        const qs = gameState.questions;
+        if (gameState.currentQ >= qs.length) {
+            const bonus = gameState.score === qs.length ? 3 : 0;
+            completeGame(reward + bonus);
+            return;
+        }
+        const q = qs[gameState.currentQ];
+        gameState.answered = false;
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <h2>${currentGame === 'quiz-hard' ? 'Hard Quiz' : 'Quick Quiz'}</h2>
+            <div style="font-size:13px;color:#888;margin-bottom:10px;">Question ${gameState.currentQ + 1} of ${qs.length} | Score: ${gameState.score}</div>
+            <div class="quiz-question">${q.q}</div>
+            <div class="quiz-options">
+                ${q.options.map((opt, i) => `<button class="quiz-option" data-idx="${i}" onclick="answerQuiz(${i}, ${q.answer}, ${reward})">${opt}</button>`).join('')}
+            </div>
+        `;
+    }
+
+    function answerQuiz(selected, correct, reward) {
+        if (gameState.answered) return;
+        gameState.answered = true;
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach((el, i) => {
+            el.disabled = true;
+            if (i === correct) el.classList.add('correct');
+            else if (i === selected) el.classList.add('wrong');
+        });
+        if (selected === correct) {
+            gameState.score++;
+            setTimeout(() => {
+                gameState.currentQ++;
+                renderQuizQuestion(reward);
+            }, 700);
+        } else {
+            setTimeout(() => {
+                gameState.currentQ++;
+                renderQuizQuestion(reward);
+            }, 1000);
+        }
+    }
+
+    // ================================================================
+    // WORD GUESS
+    // ================================================================
+
+    function renderWordGuess(hard) {
+        const words = hard ? HARD_WORD_LIST : WORD_LIST;
+        const reward = hard ? 12 : 5;
+        const maxAttempts = hard ? 5 : 7;
+        const word = words[Math.floor(Math.random() * words.length)];
+        gameState = {
+            word: word,
+            guessed: [],
+            attempts: maxAttempts,
+            wrongGuesses: 0,
+            hint: hard ? 'Tough word. Good luck.' : 'A common word. Think carefully.',
+            maxAttempts: maxAttempts,
+        };
+        renderWordGame(reward);
+    }
+
+    function renderWordGame(reward) {
+        const w = gameState.word;
+        const guessed = gameState.guessed;
+        const display = w.split('').map(ch => guessed.includes(ch) ? ch : '_').join(' ');
+        const attemptsLeft = gameState.attempts - gameState.wrongGuesses;
+
+        if (!display.includes('_')) {
+            completeGame(reward + 2);
+            return;
+        }
+
+        if (gameState.wrongGuesses >= gameState.attempts) {
+            gameAreaInner.innerHTML = `
+                <button class="back-btn" onclick="backToGames()">Back to games</button>
+                <h2>Word Guess</h2>
+                <div class="quiz-result">Out of attempts! The word was: <strong>${w}</strong></div>
+                <div style="text-align:center;"><button class="btn-primary" onclick="renderWordGuess(${currentGame === 'wordguess-hard'})">Try Again</button></div>
+            `;
+            return;
+        }
+
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <h2>${currentGame === 'wordguess-hard' ? 'Hard Word Guess' : 'Word Guess'}</h2>
+            <div class="word-hint">${gameState.hint}</div>
+            <div class="word-display">${display}</div>
+            <div class="word-input-group">
+                <input type="text" maxlength="1" id="wordGuessInput" placeholder="A-Z" onkeyup="if(event.key==='Enter') submitWordGuess(${reward})" autofocus>
+                <button onclick="submitWordGuess(${reward})">Guess</button>
+            </div>
+            <div class="word-attempts">Wrong guesses: ${gameState.wrongGuesses} / ${gameState.attempts} | Guessed: ${guessed.join(', ') || 'none'}</div>
+        `;
+        document.getElementById('wordGuessInput').focus();
+    }
+
+    function submitWordGuess(reward) {
+        const input = document.getElementById('wordGuessInput');
+        const letter = input.value.toUpperCase().trim();
+        if (!letter || letter.length !== 1 || !letter.match(/[A-Z]/)) return;
+        if (gameState.guessed.includes(letter)) {
+            showToast('Already guessed that letter');
+            input.value = '';
+            return;
+        }
+        gameState.guessed.push(letter);
+        if (!gameState.word.includes(letter)) {
+            gameState.wrongGuesses++;
+        }
+        input.value = '';
+        renderWordGame(reward);
+    }
+
+    // ================================================================
+    // MATH BLITZ
+    // ================================================================
+
+    function renderMathBlitz(hard) {
+        const reward = hard ? 12 : 6;
+        gameState = { score: 0, timeLeft: 30, total: 0, hard: hard, active: true };
+        renderMathProblem(reward);
+        gameState.timer = setInterval(() => {
+            gameState.timeLeft--;
+            const timerEl = document.getElementById('mathTimer');
+            if (timerEl) timerEl.textContent = gameState.timeLeft;
+            if (gameState.timeLeft <= 0) {
+                clearInterval(gameState.timer);
+                gameState.active = false;
+                const bonus = gameState.score >= 8 ? 3 : 0;
+                completeGame(reward + bonus);
+            }
+        }, 1000);
+        renderMathProblem(reward);
+    }
+
+    function renderMathProblem(reward) {
+        if (!gameState.active) return;
+        const hard = gameState.hard;
+        const a = hard ? Math.floor(Math.random() * 20) + 5 : Math.floor(Math.random() * 12) + 1;
+        const b = hard ? Math.floor(Math.random() * 20) + 5 : Math.floor(Math.random() * 12) + 1;
+        const ops = hard ? ['+', '-', '*'] : ['+', '-'];
+        const op = ops[Math.floor(Math.random() * ops.length)];
+        let answer;
+        if (op === '+') answer = a + b;
+        else if (op === '-') answer = a - b;
+        else answer = a * b;
+
+        gameState.currentAnswer = answer;
+        gameState.total++;
+
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames(); clearInterval(gameState.timer);">Back to games</button>
+            <h2>Math Blitz${hard ? ' Pro' : ''}</h2>
+            <div style="text-align:center;font-size:14px;color:#888;">Time left: <span id="mathTimer">${gameState.timeLeft}</span>s | Score: ${gameState.score}</div>
+            <div class="math-problem">${a} ${op} ${b} = ?</div>
+            <div class="math-input-group">
+                <input type="number" id="mathAnswer" placeholder="Answer" onkeyup="if(event.key==='Enter') submitMathAnswer(${reward})" autofocus>
+                <button onclick="submitMathAnswer(${reward})">Submit</button>
+            </div>
+            <div class="math-score">Problems attempted: ${gameState.total}</div>
+        `;
+        document.getElementById('mathAnswer').focus();
+    }
+
+    function submitMathAnswer(reward) {
+        if (!gameState.active) return;
+        const input = document.getElementById('mathAnswer');
+        const val = parseInt(input.value);
+        if (isNaN(val)) return;
+        if (val === gameState.currentAnswer) {
+            gameState.score++;
+        }
+        input.value = '';
+        renderMathProblem(reward);
+    }
+
+    // ================================================================
+    // MEMORY MATCH
+    // ================================================================
+
+    function renderMemory() {
+        const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        const deck = [...symbols, ...symbols];
+        const shuffled = shuffleArray(deck);
+        gameState = { cards: shuffled, flipped: [], matched: [], attempts: 0, lock: false };
+        renderMemoryBoard();
+    }
+
+    function renderMemoryBoard() {
+        const s = gameState;
+        if (s.matched.length === 8) {
+            completeGame(6 + Math.max(0, 4 - Math.floor(s.attempts / 4)));
+            return;
+        }
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <h2>Memory Match</h2>
+            <div style="font-size:13px;color:#888;margin-bottom:12px;">Attempts: ${s.attempts} | Matched: ${s.matched.length}/8</div>
+            <div class="memory-grid">
+                ${s.cards.map((card, i) => {
+                    const isFlipped = s.flipped.includes(i) || s.matched.includes(i);
+                    const isMatched = s.matched.includes(i);
+                    return `<div class="memory-card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}" data-idx="${i}" onclick="flipCard(${i})">${isFlipped ? card : '?'}</div>`;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    function flipCard(idx) {
+        const s = gameState;
+        if (s.lock) return;
+        if (s.matched.includes(idx)) return;
+        if (s.flipped.includes(idx)) return;
+        if (s.flipped.length === 2) return;
+
+        s.flipped.push(idx);
+        renderMemoryBoard();
+
+        if (s.flipped.length === 2) {
+            s.lock = true;
+            s.attempts++;
+            const [i1, i2] = s.flipped;
+            if (s.cards[i1] === s.cards[i2]) {
+                s.matched.push(i1, i2);
+                s.flipped = [];
+                s.lock = false;
+                renderMemoryBoard();
+            } else {
+                setTimeout(() => {
+                    s.flipped = [];
+                    s.lock = false;
+                    renderMemoryBoard();
+                }, 800);
+            }
+        }
+    }
+
+    // ================================================================
+    // SUDOKU
+    // ================================================================
+
+    function renderSudoku() {
+        const puzzle = generateSudoku();
+        gameState = { puzzle: puzzle, solution: solveSudoku(puzzle.map(r => [...r])), mistakes: 0, filled: 0 };
+        renderSudokuBoard();
+    }
+
+    function renderSudokuBoard() {
+        const p = gameState.puzzle;
+        const cells = p.flat().map((val, i) => {
+            const isGiven = val !== 0;
+            return `
+                <div class="sudoku-cell" data-idx="${i}">
+                    ${isGiven ? `<span class="given">${val}</span>` : `<input type="text" maxlength="1" data-idx="${i}" onkeyup="checkSudokuCell(${i}, this.value)" onfocus="this.value=''">`}
+                </div>
+            `;
+        }).join('');
+
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <h2>Sudoku</h2>
+            <div style="font-size:13px;color:#888;margin-bottom:10px;">Fill in the missing numbers 1-9. Mistakes: ${gameState.mistakes} / 3</div>
+            <div class="sudoku-board">${cells}</div>
+            <div class="sudoku-controls">
+                <button class="btn-secondary" onclick="renderSudoku()">New Puzzle</button>
+            </div>
+        `;
+    }
+
+    function checkSudokuCell(idx, val) {
+        if (!val || val === '') return;
+        const num = parseInt(val);
+        if (isNaN(num) || num < 1 || num > 9) {
+            document.querySelector(`.sudoku-cell[data-idx="${idx}"] input`).value = '';
+            return;
+        }
+        const row = Math.floor(idx / 9);
+        const col = idx % 9;
+        const correct = gameState.solution[row][col];
+        if (num === correct) {
+            gameState.filled++;
+            document.querySelector(`.sudoku-cell[data-idx="${idx}"] input`).disabled = true;
+            if (gameState.filled === 81 - countGiven(gameState.puzzle)) {
+                const penalty = gameState.mistakes > 2 ? 0 : gameState.mistakes > 1 ? 2 : 4;
+                completeGame(8 - penalty);
+            }
+        } else {
+            gameState.mistakes++;
+            document.querySelector(`.sudoku-cell[data-idx="${idx}"] input`).value = '';
+            if (gameState.mistakes >= 3) {
+                showToast('Too many mistakes. Try again.');
+                setTimeout(() => renderSudoku(), 600);
+            }
+        }
+    }
+
+    function countGiven(puzzle) {
+        return puzzle.flat().filter(v => v !== 0).length;
+    }
+
+    function generateSudoku() {
+        const base = [
+            [5,3,0,0,7,0,0,0,0],
+            [6,0,0,1,9,5,0,0,0],
+            [0,9,8,0,0,0,0,6,0],
+            [8,0,0,0,6,0,0,0,3],
+            [4,0,0,8,0,3,0,0,1],
+            [7,0,0,0,2,0,0,0,6],
+            [0,6,0,0,0,0,2,8,0],
+            [0,0,0,4,1,9,0,0,5],
+            [0,0,0,0,8,0,0,7,9]
+        ];
+        return base;
+    }
+
+    function solveSudoku(grid) {
+        const solved = grid.map(r => [...r]);
+        function isValid(board, row, col, num) {
+            for (let i = 0; i < 9; i++) {
+                if (board[row][i] === num) return false;
+                if (board[i][col] === num) return false;
+                const boxRow = 3 * Math.floor(row / 3) + Math.floor(i / 3);
+                const boxCol = 3 * Math.floor(col / 3) + i % 3;
+                if (board[boxRow][boxCol] === num) return false;
+            }
+            return true;
+        }
+        function solve(board) {
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (board[r][c] === 0) {
+                        for (let n = 1; n <= 9; n++) {
+                            if (isValid(board, r, c, n)) {
+                                board[r][c] = n;
+                                if (solve(board)) return true;
+                                board[r][c] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        solve(solved);
+        return solved;
+    }
+
+    // ================================================================
+    // SHOP
+    // ================================================================
+
+    function renderShop() {
+        scratchCardList.innerHTML = `
+            <div class="shop-item">
+                <h4>Scratch Card</h4>
+                <div class="price">25 coins</div>
+                <p style="font-size:12px;color:#888;margin:6px 0;">Scratch to reveal a shopping coupon code.</p>
+                <button onclick="buyScratchCard()" ${state.coins < 25 ? 'disabled' : ''}>Buy</button>
+                <div style="font-size:11px;color:#888;margin-top:6px;">Owned: ${state.scratchCardsOwned}</div>
+            </div>
+        `;
+
+        const lockedGames = GAMES.filter(g => g.locked && !state.unlocks.includes(g.id));
+        unlockList.innerHTML = lockedGames.length ? lockedGames.map(g => `
+            <div class="shop-item">
+                <h4>${g.name}</h4>
+                <div class="price">${g.unlockCost} coins</div>
+                <p style="font-size:12px;color:#888;margin:6px 0;">Earn ${g.baseReward} coins per win.</p>
+                <button onclick="buyUnlock('${g.id}', ${g.unlockCost})" ${state.coins < g.unlockCost ? 'disabled' : ''}>Unlock</button>
+            </div>
+        `).join('') : '<p style="font-size:14px;color:#888;">All games unlocked!</p>';
+    }
+
+    function buyScratchCard() {
+        if (!spendCoins(25)) {
+            showToast('Not enough coins');
+            return;
+        }
+        state.scratchCardsOwned++;
+        saveState();
+        renderShop();
+        showToast('Scratch card purchased! Go scratch it.');
+        renderScratchCard();
+    }
+
+    function renderScratchCard() {
+        if (state.scratchCardsOwned <= 0) return;
+        const reward = SCRATCH_REWARDS[Math.floor(Math.random() * SCRATCH_REWARDS.length)];
+        gamePlayArea.style.display = 'block';
+        gameAreaInner.innerHTML = `
+            <button class="back-btn" onclick="backToGames()">Back to games</button>
+            <h2>Scratch Card</h2>
+            <p style="font-size:14px;color:#555;margin-bottom:16px;">Tap or click the card below to reveal your coupon code.</p>
+            <div class="scratch-card" id="scratchCardEl" onclick="revealScratch('${reward.value}', '${reward.desc}')">
+                <div class="scratch-hint">Tap to scratch</div>
+                <div class="scratch-reward">???</div>
+                <div class="scratch-small">25 coins</div>
+            </div>
+        `;
+    }
+
+    function revealScratch(value, desc) {
+        const el = document.getElementById('scratchCardEl');
+        if (el.classList.contains('revealed')) return;
+        el.classList.add('revealed');
+        el.innerHTML = `
+            <div class="scratch-hint" style="font-size:12px;">Your coupon code</div>
+            <div class="scratch-reward">${value}</div>
+            <div class="scratch-small">${desc}</div>
+        `;
+        state.scratchCardsOwned--;
+        saveState();
+        showToast('Coupon revealed! Copy your code.');
+    }
+
+    function buyUnlock(gameId, cost) {
+        if (!spendCoins(cost)) {
+            showToast('Not enough coins');
+            return;
+        }
+        state.unlocks.push(gameId);
+        saveState();
+        renderShop();
+        renderGames();
+        showToast('Game unlocked!');
+    }
+
+    // ================================================================
+    // STATS
+    // ================================================================
+
+    function renderStats() {
+        statsRow.innerHTML = `
+            <div class="stat-box"><div class="num">${state.coins}</div><div class="label">Coins</div></div>
+            <div class="stat-box"><div class="num">${state.gamesPlayed}</div><div class="label">Games Played</div></div>
+            <div class="stat-box"><div class="num">${state.totalEarned}</div><div class="label">Total Earned</div></div>
+            <div class="stat-box"><div class="num">${state.gamesCompleted}</div><div class="label">Completed</div></div>
+        `;
+        lbYourScore.textContent = state.totalEarned;
+    }
+
+    // ================================================================
+    // UTILITY
+    // ================================================================
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ================================================================
+    // INIT
+    // ================================================================
+
+    loadState();
+    updateCoinDisplay();
+    renderGames();
+    renderStats();
+
+    // If user has scratch cards, show a prompt in shop
+    if (state.scratchCardsOwned > 0) {
+        setTimeout(() => {
+            showToast('You have ' + state.scratchCardsOwned + ' scratch card(s) to open!');
+        }, 500);
+    }
+</script>
+</body>
+</html>
