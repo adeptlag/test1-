@@ -10,21 +10,17 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             background: #f4f4f9;
             color: #222;
             min-height: 100vh;
         }
-
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 16px;
         }
-
-        /* Header */
         .header {
             display: flex;
             align-items: center;
@@ -37,17 +33,14 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .logo {
             font-size: 22px;
             font-weight: 700;
             color: #1a1a2e;
         }
-
         .logo span {
             color: #f0a500;
         }
-
         .coin-display {
             display: flex;
             align-items: center;
@@ -59,16 +52,13 @@
             font-size: 16px;
             color: #8b6b00;
         }
-
         .coin-display .icon {
             font-size: 18px;
         }
-
         .nav-links {
             display: flex;
             gap: 6px;
         }
-
         .nav-links button {
             background: #f0f0f5;
             border: none;
@@ -80,17 +70,13 @@
             color: #444;
             transition: background 0.15s;
         }
-
         .nav-links button:hover {
             background: #e0e0ea;
         }
-
         .nav-links button.active {
             background: #1a1a2e;
             color: #fff;
         }
-
-        /* Ad Spaces */
         .ad-banner {
             background: #e8e8f0;
             border-radius: 10px;
@@ -105,11 +91,9 @@
             align-items: center;
             justify-content: center;
         }
-
         .ad-banner strong {
             color: #555;
         }
-
         .ad-sidebar {
             background: #e8e8f0;
             border-radius: 10px;
@@ -125,29 +109,22 @@
             flex-direction: column;
             gap: 6px;
         }
-
-        /* Main Layout */
         .main-layout {
             display: grid;
             grid-template-columns: 1fr 220px;
             gap: 16px;
         }
-
         @media (max-width: 750px) {
             .main-layout {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Sections */
         .section {
             display: none;
         }
-
         .section.active {
             display: block;
         }
-
         .card {
             background: #fff;
             border-radius: 12px;
@@ -155,27 +132,22 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             margin-bottom: 16px;
         }
-
         .card h2 {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 14px;
             color: #1a1a2e;
         }
-
         .card p {
             font-size: 14px;
             color: #555;
             line-height: 1.5;
         }
-
-        /* Game Grid */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 12px;
         }
-
         .game-card {
             background: #f9f9fc;
             border-radius: 10px;
@@ -185,42 +157,34 @@
             border: 1px solid #eee;
             transition: border-color 0.15s, box-shadow 0.15s;
         }
-
         .game-card:hover {
             border-color: #f0a500;
             box-shadow: 0 2px 8px rgba(240, 165, 0, 0.12);
         }
-
         .game-card .emoji {
             font-size: 32px;
             margin-bottom: 8px;
         }
-
         .game-card h3 {
             font-size: 15px;
             font-weight: 600;
             color: #1a1a2e;
         }
-
         .game-card .reward {
             font-size: 12px;
             color: #888;
             margin-top: 6px;
         }
-
         .game-card .locked {
             font-size: 11px;
             color: #e74c3c;
             margin-top: 4px;
             font-weight: 500;
         }
-
         .game-card.locked-card {
             opacity: 0.6;
             cursor: not-allowed;
         }
-
-        /* Game Play Area */
         .game-area {
             background: #fff;
             border-radius: 12px;
@@ -228,7 +192,6 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             min-height: 300px;
         }
-
         .game-area .back-btn {
             background: none;
             border: none;
@@ -239,7 +202,6 @@
             margin-bottom: 12px;
             display: block;
         }
-
         .game-area .back-btn:hover {
             color: #1a1a2e;
         }
@@ -250,14 +212,11 @@
             margin-bottom: 16px;
             color: #1a1a2e;
         }
-
-        /* Shop & Scratch Card Styles */
         .shop-items {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 12px;
         }
-
         .shop-item {
             background: #f9f9fc;
             border-radius: 10px;
@@ -265,19 +224,16 @@
             text-align: center;
             border: 1px solid #eee;
         }
-
         .shop-item h4 {
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 6px;
         }
-
         .shop-item .price {
             font-size: 13px;
             color: #f0a500;
             font-weight: 600;
         }
-
         .shop-item button {
             margin-top: 10px;
             background: #1a1a2e;
@@ -289,17 +245,13 @@
             cursor: pointer;
             transition: background 0.15s;
         }
-
         .shop-item button:hover {
             background: #333;
         }
-
         .shop-item button:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
-
-        /* Scratch Card */
         .scratch-card {
             background: linear-gradient(135deg, #f0a500, #ffcc00);
             border-radius: 14px;
@@ -315,43 +267,35 @@
             transition: transform 0.1s;
             user-select: none;
         }
-
         .scratch-card.revealed {
             background: #fff;
             border: 2px solid #f0a500;
             color: #1a1a2e;
         }
-
         .scratch-card .scratch-hint {
             font-size: 14px;
             opacity: 0.9;
         }
-
         .scratch-card .scratch-reward {
             font-size: 18px;
             font-weight: 700;
             margin-top: 8px;
         }
-
         .scratch-card .scratch-small {
             font-size: 12px;
             margin-top: 6px;
             opacity: 0.8;
         }
-
-        /* Quiz styles */
         .quiz-question {
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 14px;
         }
-
         .quiz-options {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-
         .quiz-option {
             background: #f4f4f9;
             border: 1px solid #ddd;
@@ -362,33 +306,26 @@
             transition: background 0.1s;
             text-align: left;
         }
-
         .quiz-option:hover {
             background: #e8e8f0;
         }
-
         .quiz-option.correct {
             background: #d4edda;
             border-color: #28a745;
         }
-
         .quiz-option.wrong {
             background: #f8d7da;
             border-color: #dc3545;
         }
-
         .quiz-option:disabled {
             cursor: default;
         }
-
         .quiz-result {
             text-align: center;
             padding: 20px;
             font-size: 16px;
             font-weight: 500;
         }
-
-        /* Word game styles */
         .word-display {
             font-size: 28px;
             font-weight: 700;
@@ -397,14 +334,12 @@
             margin: 16px 0;
             font-family: 'Courier New', monospace;
         }
-
         .word-hint {
             text-align: center;
             font-size: 14px;
             color: #888;
             margin-bottom: 12px;
         }
-
         .word-input-group {
             display: flex;
             gap: 8px;
@@ -412,7 +347,6 @@
             margin: 12px 0;
             flex-wrap: wrap;
         }
-
         .word-input-group input {
             padding: 10px 16px;
             border: 1px solid #ddd;
@@ -422,7 +356,6 @@
             text-align: center;
             text-transform: uppercase;
         }
-
         .word-input-group button {
             background: #1a1a2e;
             color: #fff;
@@ -432,7 +365,6 @@
             cursor: pointer;
             font-size: 14px;
         }
-
         .word-input-group button:hover {
             background: #333;
         }
@@ -442,8 +374,6 @@
             font-size: 13px;
             color: #888;
         }
-
-        /* Sudoku */
         .sudoku-board {
             display: grid;
             grid-template-columns: repeat(9, 1fr);
@@ -451,7 +381,6 @@
             margin: 0 auto;
             border: 2px solid #333;
         }
-
         .sudoku-cell {
             aspect-ratio: 1;
             display: flex;
@@ -462,31 +391,24 @@
             border: 1px solid #bbb;
             background: #fff;
         }
-
         .sudoku-cell:nth-child(3n) {
             border-right: 2px solid #333;
         }
-
         .sudoku-cell:nth-child(9n+1) {
             border-left: 2px solid #333;
         }
-
         .sudoku-cell:nth-child(n+19):nth-child(-n+27) {
             border-bottom: 2px solid #333;
         }
-
         .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
             border-bottom: 2px solid #333;
         }
-
         .sudoku-cell:nth-child(-n+9) {
             border-top: 2px solid #333;
         }
-
         .sudoku-cell:nth-child(n+73) {
             border-bottom: 2px solid #333;
         }
-
         .sudoku-cell input {
             width: 100%;
             height: 100%;
@@ -497,16 +419,13 @@
             background: transparent;
             outline: none;
         }
-
         .sudoku-cell input:focus {
             background: #fff8e0;
         }
-
         .sudoku-cell .given {
             color: #1a1a2e;
             font-weight: 700;
         }
-
         .sudoku-controls {
             display: flex;
             gap: 10px;
@@ -514,7 +433,6 @@
             margin-top: 16px;
             flex-wrap: wrap;
         }
-
         .sudoku-controls button {
             background: #f0f0f5;
             border: 1px solid #ddd;
@@ -524,22 +442,17 @@
             cursor: pointer;
             transition: background 0.15s;
         }
-
         .sudoku-controls button:hover {
             background: #e0e0ea;
         }
-
         .sudoku-controls button.primary {
             background: #1a1a2e;
             color: #fff;
             border-color: #1a1a2e;
         }
-
         .sudoku-controls button.primary:hover {
             background: #333;
         }
-
-        /* Memory game */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -547,7 +460,6 @@
             max-width: 320px;
             margin: 0 auto;
         }
-
         .memory-card {
             aspect-ratio: 1;
             background: #1a1a2e;
@@ -560,21 +472,17 @@
             transition: transform 0.15s;
             color: #fff;
         }
-
         .memory-card.flipped {
             background: #fff;
             border: 2px solid #f0a500;
             color: #1a1a2e;
         }
-
         .memory-card.matched {
             background: #d4edda;
             border-color: #28a745;
             color: #1a1a2e;
             cursor: default;
         }
-
-        /* Math game */
         .math-problem {
             text-align: center;
             font-size: 32px;
@@ -582,14 +490,12 @@
             margin: 20px 0;
             color: #1a1a2e;
         }
-
         .math-input-group {
             display: flex;
             gap: 8px;
             justify-content: center;
             margin: 12px 0;
         }
-
         .math-input-group input {
             padding: 10px 16px;
             border: 1px solid #ddd;
@@ -598,7 +504,6 @@
             width: 120px;
             text-align: center;
         }
-
         .math-input-group button {
             background: #1a1a2e;
             color: #fff;
@@ -608,14 +513,11 @@
             cursor: pointer;
             font-size: 14px;
         }
-
         .math-score {
             text-align: center;
             font-size: 14px;
             color: #888;
         }
-
-        /* Sidebar */
         .sidebar-section {
             background: #fff;
             border-radius: 12px;
@@ -623,14 +525,12 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             margin-bottom: 16px;
         }
-
         .sidebar-section h3 {
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 10px;
             color: #1a1a2e;
         }
-
         .leaderboard-item {
             display: flex;
             justify-content: space-between;
@@ -638,32 +538,25 @@
             padding: 5px 0;
             border-bottom: 1px solid #f0f0f5;
         }
-
         .leaderboard-item:last-child {
             border-bottom: none;
         }
-
         .leaderboard-item .rank {
             color: #888;
             margin-right: 6px;
         }
-
         .leaderboard-item .name {
             flex: 1;
         }
-
         .leaderboard-item .score {
             font-weight: 600;
             color: #f0a500;
         }
-
-        /* Stats */
         .stats-row {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
         .stat-box {
             background: #f9f9fc;
             border-radius: 8px;
@@ -672,13 +565,11 @@
             min-width: 100px;
             text-align: center;
         }
-
         .stat-box .num {
             font-size: 22px;
             font-weight: 700;
             color: #1a1a2e;
         }
-
         .stat-box .label {
             font-size: 11px;
             color: #888;
@@ -686,8 +577,6 @@
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
-
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -704,12 +593,9 @@
             transition: opacity 0.3s;
             pointer-events: none;
         }
-
         .toast.show {
             opacity: 1;
         }
-
-        /* Button */
         .btn-primary {
             background: #1a1a2e;
             color: #fff;
@@ -720,11 +606,9 @@
             cursor: pointer;
             transition: background 0.15s;
         }
-
         .btn-primary:hover {
             background: #333;
         }
-
         .btn-secondary {
             background: #f0f0f5;
             border: 1px solid #ddd;
@@ -733,11 +617,9 @@
             font-size: 13px;
             cursor: pointer;
         }
-
         .btn-secondary:hover {
             background: #e0e0ea;
         }
-
         hr {
             border: none;
             border-top: 1px solid #eee;
@@ -746,7 +628,6 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <!-- Header -->
     <div class="header">
@@ -761,41 +642,34 @@
             <button data-section="stats" onclick="showSection('stats')">Stats</button>
         </div>
     </div>
-
     <!-- Top Ad -->
     <div class="ad-banner">
         <strong>Ad Space</strong> &mdash; Your advertisement could appear here. Contact us for sponsorship opportunities.
     </div>
-
     <!-- Main Layout -->
     <div class="main-layout">
         <div>
-
             <!-- GAMES SECTION -->
             <div id="section-games" class="section active">
                 <div class="card">
                     <h2>Choose a Game</h2>
                     <p>Play any unlocked game to earn coins. Complete games faster for bonus rewards.</p>
                 </div>
-
                 <div class="game-grid" id="gameGrid">
                     <!-- Populated by JS -->
                 </div>
-
                 <div id="gamePlayArea" style="display:none; margin-top: 16px;">
                     <div class="game-area" id="gameAreaInner">
                         <!-- Game content rendered here -->
                     </div>
                 </div>
             </div>
-
             <!-- SHOP SECTION -->
             <div id="section-shop" class="section">
                 <div class="card">
                     <h2>Shop</h2>
                     <p>Spend your coins on upgrades and scratch cards with real coupon codes.</p>
                 </div>
-
                 <div class="card">
                     <h3>Scratch Cards</h3>
                     <p style="margin-bottom:12px;">Buy a scratch card for 25 coins and scratch it to reveal a coupon code for popular shopping sites.</p>
@@ -803,7 +677,6 @@
                         <!-- Populated by JS -->
                     </div>
                 </div>
-
                 <div class="card">
                     <h3>Game Unlocks</h3>
                     <p style="margin-bottom:12px;">Unlock harder versions of games for more coins per win.</p>
@@ -812,8 +685,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- STATS SECTION -->
             <div id="section-stats" class="section">
                 <div class="card">
                     <h2>Your Stats</h2>
@@ -821,15 +692,12 @@
                         <!-- Populated by JS -->
                     </div>
                 </div>
-
                 <div class="card">
                     <h3>How to Earn More Coins</h3>
                     <p>Complete games with fewer mistakes for bonus coins. Each game gives a base reward plus a speed bonus if you finish quickly. Check the shop for scratch cards that can give you shopping coupons.</p>
                 </div>
             </div>
         </div>
-
-        <!-- Sidebar -->
         <div>
             <div class="sidebar-section">
                 <h3>Leaderboard</h3>
@@ -837,33 +705,22 @@
                     <div class="leaderboard-item"><span class="rank">1.</span><span class="name">You</span><span class="score" id="lbYourScore">0</span></div>
                 </div>
             </div>
-
             <div class="ad-sidebar">
                 <strong>Ad Space</strong>
                 <span>300x250</span>
             </div>
-
             <div class="sidebar-section">
                 <h3>Quick Tips</h3>
                 <p style="font-size:13px;color:#555;line-height:1.5;">Complete daily games to build your coin streak. Use coins to unlock harder levels for bigger rewards. Scratch cards contain real coupon codes.</p>
             </div>
         </div>
     </div>
-
-    <!-- Bottom Ad -->
     <div class="ad-banner" style="margin-top:16px;">
         <strong>Ad Space</strong> &mdash; Footer banner advertisement area.
     </div>
 </div>
-
-<!-- Toast -->
 <div class="toast" id="toast"></div>
-
 <script>
-    // ================================================================
-    // DATA
-    // ================================================================
-
     const GAMES = [
         { id: 'quiz', name: 'Quick Quiz', emoji: 'Q', desc: 'Answer 5 trivia questions on various topics.', baseReward: 5, unlockCost: 0 },
         { id: 'wordguess', name: 'Word Guess', emoji: 'W', desc: 'Guess the hidden word one letter at a time.', baseReward: 5, unlockCost: 0 },
@@ -874,7 +731,6 @@
         { id: 'wordguess-hard', name: 'Hard Word Guess', emoji: 'W', desc: 'Longer words, fewer attempts. Higher payout.', baseReward: 12, unlockCost: 50, locked: true },
         { id: 'mathblitz-hard', name: 'Math Blitz Pro', emoji: 'M', desc: 'Tougher problems in 30 seconds. Double reward.', baseReward: 12, unlockCost: 50, locked: true },
     ];
-
     const QUIZ_QUESTIONS = [
         { q: 'What is the capital of France?', options: ['Berlin', 'Madrid', 'Paris', 'Rome'], answer: 2 },
         { q: 'What is 7 x 8?', options: ['48', '56', '64', '72'], answer: 1 },
@@ -895,10 +751,8 @@
         { q: 'What year did World War II end?', options: ['1943', '1944', '1945', '1946'], answer: 2 },
         { q: 'What is the hardest natural substance?', options: ['Gold', 'Iron', 'Diamond', 'Platinum'], answer: 2 },
     ];
-
     const WORD_LIST = ['PYTHON', 'JAVA', 'RUBY', 'COBALT', 'SILVER', 'COPPER', 'TIGER', 'EAGLE', 'PIANO', 'GUITAR', 'PLANET', 'COMET', 'OCEAN', 'FOREST', 'CASTLE'];
     const HARD_WORD_LIST = ['DAUPHIN', 'MYSTIQUE', 'KALEIDOSCOPE', 'QUIXOTIC', 'ZYGOTE', 'JUXTAPOSE', 'LYMPHATIC', 'EQUILIBRIUM'];
-
     const SCRATCH_REWARDS = [
         { value: 'AMAZON10', desc: '10% off on Amazon - code: AMAZON10' },
         { value: 'FLIPKART15', desc: '15% off on Flipkart - code: FLIPKART15' },
@@ -911,11 +765,6 @@
         { value: 'NYKA100', desc: 'Rs 100 off on Nykaa - code: NYKA100' },
         { value: 'FLIP50', desc: 'Flat Rs 500 off on Flipkart (min Rs 2999) - code: FLIP50' },
     ];
-
-    // ================================================================
-    // STATE
-    // ================================================================
-
     let state = {
         coins: 10,
         gamesPlayed: 0,
@@ -926,7 +775,6 @@
         bestMath: 0,
         gamesCompleted: 0,
     };
-
     function loadState() {
         try {
             const saved = localStorage.getItem('coinquest_state');
@@ -936,17 +784,11 @@
             }
         } catch (e) {}
     }
-
     function saveState() {
         try {
             localStorage.setItem('coinquest_state', JSON.stringify(state));
         } catch (e) {}
     }
-
-    // ================================================================
-    // DOM REFS
-    // ================================================================
-
     const coinBalance = document.getElementById('coinBalance');
     const gameGrid = document.getElementById('gameGrid');
     const gamePlayArea = document.getElementById('gamePlayArea');
@@ -956,46 +798,28 @@
     const unlockList = document.getElementById('unlockList');
     const statsRow = document.getElementById('statsRow');
     const lbYourScore = document.getElementById('lbYourScore');
-
-    // ================================================================
-    // NAVIGATION
-    // ================================================================
-
     function showSection(id) {
         document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
         document.getElementById('section-' + id).classList.add('active');
         document.querySelectorAll('.nav-links button').forEach(el => el.classList.remove('active'));
         document.querySelector('.nav-links button[data-section="' + id + '"]').classList.add('active');
-
         if (id === 'shop') renderShop();
         if (id === 'stats') renderStats();
         if (id === 'games') renderGames();
     }
-
-    // ================================================================
-    // TOAST
-    // ================================================================
-
     let toastTimer;
-
     function showToast(msg) {
         toast.textContent = msg;
         toast.classList.add('show');
         clearTimeout(toastTimer);
         toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
     }
-
-    // ================================================================
-    // COINS
-    // ================================================================
-
     function addCoins(amount) {
         state.coins += amount;
         state.totalEarned += amount;
         updateCoinDisplay();
         saveState();
     }
-
     function spendCoins(amount) {
         if (state.coins < amount) return false;
         state.coins -= amount;
@@ -1003,15 +827,9 @@
         saveState();
         return true;
     }
-
     function updateCoinDisplay() {
         coinBalance.textContent = state.coins;
     }
-
-    // ================================================================
-    // GAME RENDER
-    // ================================================================
-
     function renderGames() {
         gamePlayArea.style.display = 'none';
         const html = GAMES.map(g => {
@@ -1027,20 +845,13 @@
         }).join('');
         gameGrid.innerHTML = html;
     }
-
-    // ================================================================
-    // GAME ENGINE
-    // ================================================================
-
     let currentGame = null;
     let gameState = {};
-
     function startGame(gameId) {
         const game = GAMES.find(g => g.id === gameId);
         if (!game) return;
         currentGame = gameId;
         gamePlayArea.style.display = 'block';
-
         if (gameId === 'quiz') renderQuiz(false);
         else if (gameId === 'quiz-hard') renderQuiz(true);
         else if (gameId === 'wordguess') renderWordGuess(false);
@@ -1049,15 +860,12 @@
         else if (gameId === 'mathblitz-hard') renderMathBlitz(true);
         else if (gameId === 'memory') renderMemory();
         else if (gameId === 'sudoku') renderSudoku();
-
         window.scrollTo({ top: gamePlayArea.offsetTop - 20, behavior: 'smooth' });
     }
-
     function backToGames() {
         gamePlayArea.style.display = 'none';
         currentGame = null;
     }
-
     function completeGame(reward) {
         state.gamesPlayed++;
         state.gamesCompleted++;
@@ -1068,8 +876,6 @@
         showToast('You earned ' + reward + ' coins!');
         saveState();
         renderStats();
-
-        // Show reward overlay briefly
         gameAreaInner.innerHTML = `
             <button class="back-btn" onclick="backToGames()">Back to games</button>
             <div style="text-align:center;padding:40px 0;">
@@ -1081,18 +887,12 @@
             </div>
         `;
     }
-
-    // ================================================================
-    // QUIZ
-    // ================================================================
-
     function renderQuiz(hard) {
         const questions = hard ? HARD_QUIZ_QUESTIONS : QUIZ_QUESTIONS;
         const reward = hard ? 12 : 5;
         gameState = { questions: shuffleArray([...questions]), currentQ: 0, score: 0, answered: false };
         renderQuizQuestion(reward);
     }
-
     function renderQuizQuestion(reward) {
         const qs = gameState.questions;
         if (gameState.currentQ >= qs.length) {
@@ -1112,7 +912,6 @@
             </div>
         `;
     }
-
     function answerQuiz(selected, correct, reward) {
         if (gameState.answered) return;
         gameState.answered = true;
@@ -1135,11 +934,6 @@
             }, 1000);
         }
     }
-
-    // ================================================================
-    // WORD GUESS
-    // ================================================================
-
     function renderWordGuess(hard) {
         const words = hard ? HARD_WORD_LIST : WORD_LIST;
         const reward = hard ? 12 : 5;
@@ -1155,18 +949,15 @@
         };
         renderWordGame(reward);
     }
-
     function renderWordGame(reward) {
         const w = gameState.word;
         const guessed = gameState.guessed;
         const display = w.split('').map(ch => guessed.includes(ch) ? ch : '_').join(' ');
         const attemptsLeft = gameState.attempts - gameState.wrongGuesses;
-
         if (!display.includes('_')) {
             completeGame(reward + 2);
             return;
         }
-
         if (gameState.wrongGuesses >= gameState.attempts) {
             gameAreaInner.innerHTML = `
                 <button class="back-btn" onclick="backToGames()">Back to games</button>
@@ -1176,7 +967,6 @@
             `;
             return;
         }
-
         gameAreaInner.innerHTML = `
             <button class="back-btn" onclick="backToGames()">Back to games</button>
             <h2>${currentGame === 'wordguess-hard' ? 'Hard Word Guess' : 'Word Guess'}</h2>
@@ -1190,7 +980,6 @@
         `;
         document.getElementById('wordGuessInput').focus();
     }
-
     function submitWordGuess(reward) {
         const input = document.getElementById('wordGuessInput');
         const letter = input.value.toUpperCase().trim();
@@ -1207,11 +996,6 @@
         input.value = '';
         renderWordGame(reward);
     }
-
-    // ================================================================
-    // MATH BLITZ
-    // ================================================================
-
     function renderMathBlitz(hard) {
         const reward = hard ? 12 : 6;
         gameState = { score: 0, timeLeft: 30, total: 0, hard: hard, active: true };
@@ -1229,7 +1013,6 @@
         }, 1000);
         renderMathProblem(reward);
     }
-
     function renderMathProblem(reward) {
         if (!gameState.active) return;
         const hard = gameState.hard;
@@ -1241,10 +1024,8 @@
         if (op === '+') answer = a + b;
         else if (op === '-') answer = a - b;
         else answer = a * b;
-
         gameState.currentAnswer = answer;
         gameState.total++;
-
         gameAreaInner.innerHTML = `
             <button class="back-btn" onclick="backToGames(); clearInterval(gameState.timer);">Back to games</button>
             <h2>Math Blitz${hard ? ' Pro' : ''}</h2>
@@ -1258,7 +1039,6 @@
         `;
         document.getElementById('mathAnswer').focus();
     }
-
     function submitMathAnswer(reward) {
         if (!gameState.active) return;
         const input = document.getElementById('mathAnswer');
@@ -1270,11 +1050,6 @@
         input.value = '';
         renderMathProblem(reward);
     }
-
-    // ================================================================
-    // MEMORY MATCH
-    // ================================================================
-
     function renderMemory() {
         const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         const deck = [...symbols, ...symbols];
@@ -1282,7 +1057,6 @@
         gameState = { cards: shuffled, flipped: [], matched: [], attempts: 0, lock: false };
         renderMemoryBoard();
     }
-
     function renderMemoryBoard() {
         const s = gameState;
         if (s.matched.length === 8) {
@@ -1302,17 +1076,14 @@
             </div>
         `;
     }
-
     function flipCard(idx) {
         const s = gameState;
         if (s.lock) return;
         if (s.matched.includes(idx)) return;
         if (s.flipped.includes(idx)) return;
         if (s.flipped.length === 2) return;
-
         s.flipped.push(idx);
         renderMemoryBoard();
-
         if (s.flipped.length === 2) {
             s.lock = true;
             s.attempts++;
@@ -1331,17 +1102,11 @@
             }
         }
     }
-
-    // ================================================================
-    // SUDOKU
-    // ================================================================
-
     function renderSudoku() {
         const puzzle = generateSudoku();
         gameState = { puzzle: puzzle, solution: solveSudoku(puzzle.map(r => [...r])), mistakes: 0, filled: 0 };
         renderSudokuBoard();
     }
-
     function renderSudokuBoard() {
         const p = gameState.puzzle;
         const cells = p.flat().map((val, i) => {
@@ -1352,7 +1117,6 @@
                 </div>
             `;
         }).join('');
-
         gameAreaInner.innerHTML = `
             <button class="back-btn" onclick="backToGames()">Back to games</button>
             <h2>Sudoku</h2>
@@ -1363,7 +1127,6 @@
             </div>
         `;
     }
-
     function checkSudokuCell(idx, val) {
         if (!val || val === '') return;
         const num = parseInt(val);
@@ -1390,11 +1153,9 @@
             }
         }
     }
-
     function countGiven(puzzle) {
         return puzzle.flat().filter(v => v !== 0).length;
     }
-
     function generateSudoku() {
         const base = [
             [5,3,0,0,7,0,0,0,0],
@@ -1409,7 +1170,6 @@
         ];
         return base;
     }
-
     function solveSudoku(grid) {
         const solved = grid.map(r => [...r]);
         function isValid(board, row, col, num) {
@@ -1442,11 +1202,6 @@
         solve(solved);
         return solved;
     }
-
-    // ================================================================
-    // SHOP
-    // ================================================================
-
     function renderShop() {
         scratchCardList.innerHTML = `
             <div class="shop-item">
@@ -1457,7 +1212,6 @@
                 <div style="font-size:11px;color:#888;margin-top:6px;">Owned: ${state.scratchCardsOwned}</div>
             </div>
         `;
-
         const lockedGames = GAMES.filter(g => g.locked && !state.unlocks.includes(g.id));
         unlockList.innerHTML = lockedGames.length ? lockedGames.map(g => `
             <div class="shop-item">
@@ -1468,7 +1222,6 @@
             </div>
         `).join('') : '<p style="font-size:14px;color:#888;">All games unlocked!</p>';
     }
-
     function buyScratchCard() {
         if (!spendCoins(25)) {
             showToast('Not enough coins');
@@ -1480,7 +1233,6 @@
         showToast('Scratch card purchased! Go scratch it.');
         renderScratchCard();
     }
-
     function renderScratchCard() {
         if (state.scratchCardsOwned <= 0) return;
         const reward = SCRATCH_REWARDS[Math.floor(Math.random() * SCRATCH_REWARDS.length)];
@@ -1496,7 +1248,6 @@
             </div>
         `;
     }
-
     function revealScratch(value, desc) {
         const el = document.getElementById('scratchCardEl');
         if (el.classList.contains('revealed')) return;
@@ -1510,7 +1261,6 @@
         saveState();
         showToast('Coupon revealed! Copy your code.');
     }
-
     function buyUnlock(gameId, cost) {
         if (!spendCoins(cost)) {
             showToast('Not enough coins');
@@ -1522,11 +1272,6 @@
         renderGames();
         showToast('Game unlocked!');
     }
-
-    // ================================================================
-    // STATS
-    // ================================================================
-
     function renderStats() {
         statsRow.innerHTML = `
             <div class="stat-box"><div class="num">${state.coins}</div><div class="label">Coins</div></div>
@@ -1536,11 +1281,6 @@
         `;
         lbYourScore.textContent = state.totalEarned;
     }
-
-    // ================================================================
-    // UTILITY
-    // ================================================================
-
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -1548,17 +1288,10 @@
         }
         return arr;
     }
-
-    // ================================================================
-    // INIT
-    // ================================================================
-
     loadState();
     updateCoinDisplay();
     renderGames();
     renderStats();
-
-    // If user has scratch cards, show a prompt in shop
     if (state.scratchCardsOwned > 0) {
         setTimeout(() => {
             showToast('You have ' + state.scratchCardsOwned + ' scratch card(s) to open!');
